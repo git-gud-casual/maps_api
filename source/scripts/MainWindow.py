@@ -8,15 +8,19 @@ class MainWindow(QMainWindow):
         super().__init__()
         # Загрузка интерфейс
         uic.loadUi('source/ui/MainWindow.ui', self)
-        if map_:
-            self.set_map(map_)
+        self.set_map(map_)
         self.set_status(status_code)
 
     # Метод для отображения карты на QLabel
     def set_map(self, map_):
         # self.map_render - QLabel для отображения карты
-        self.map_render.setPixmap(map_)
+        if map_:
+            self.map_render.setPixmap(map_)
 
     # Оторбражение статус кода. Для отладки
     def set_status(self, msg):
         self.error_label.setText(f'Status-code:\n{msg}')
+
+    def new_img(self, map_, status_code):
+        self.set_map(map_)
+        self.set_status(status_code)
