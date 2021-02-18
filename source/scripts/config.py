@@ -15,7 +15,7 @@ static_api_params = {
 }
 
 # Поиск по организациям API данные
-search_api_key = 'dda3ddba-c9ea-4ead-9010-f43fbc15c6e3'  # Вставить ключ от API для поиска по организациям
+search_api_key = ''  # Вставить ключ от API для поиска по организациям
 search_api_url = 'https://search-maps.yandex.ru/v1/'
 
 search_api_params = {
