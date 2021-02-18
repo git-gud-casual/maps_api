@@ -97,6 +97,61 @@
      <string>Тип карты</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="input_object">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="input_object_text">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>140</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Найти объект</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="find_object_but">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Найти</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="find_object_status">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>121</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
@@ -109,8 +164,14 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QRadioButton" name="map_but">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>Схема</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">l_param_but_group</string>
