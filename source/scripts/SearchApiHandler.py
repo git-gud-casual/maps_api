@@ -13,8 +13,7 @@ class SearchApiHandler(ApiHandler):
     # Новое подключение
     def new_response(self):
         super().new_response()
-        self.answer = self.response.json()['features']
-        if len(self.answer) > 0:
+        if self.get_status() == 200 and len(self.response.json()['features']) > 0:
             self.object_found = True
             self.answer = self.response.json()['features'][0]
             # Устанавливаем новые координаты в параметре геокодера и подключаемся

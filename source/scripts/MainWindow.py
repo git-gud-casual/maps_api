@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
         self.new_img()
         self.input_object.setText('')
         self.address_text.setPlainText('')
+        self.add_index.setCheckState(False)
 
     # Добавить индекс
     def index(self):
