@@ -2,6 +2,7 @@
   <dictionary name="Comp">
     <words>
       <w>apikey</w>
+      <w>geocoder</w>
     </words>
   </dictionary>
 </component>

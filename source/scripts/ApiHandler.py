@@ -1,3 +1,6 @@
+import requests
+
+
 # Класс родитель для других обработчиков API
 class ApiHandler:
     def __init__(self, url, params):
@@ -18,3 +21,6 @@ class ApiHandler:
         if self.response:
             return self.response.status_code
         return 'not connected'
+
+    def new_response(self):
+        self.response = requests.get(self.url, self.params)

@@ -18,7 +18,7 @@ class StaticApiHandler(ApiHandler):
         if img:
             return img
         # Устанавливаем соединение, т.к картинки нет в кеше
-        self.response = requests.get(self.url, self.params)
+        self.new_response()
         # Если подключения успешно, то загружаем карту
         if self.get_status() == 200:
             self.cache_handler.save_image(img_name, self.response.content)

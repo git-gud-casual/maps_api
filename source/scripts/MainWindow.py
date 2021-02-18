@@ -24,6 +24,8 @@ class MainWindow(QMainWindow):
         self.find_object_but.clicked.connect(self.find_object)
         # Сброс найденного объекта
         self.clear_object_but.clicked.connect(self.clear_object)
+        # Добавить индекс к адресу
+        self.add_index.stateChanged.connect(self.index)
 
     # Метод для отображения карты на QLabel
     def set_map(self, map_):
@@ -65,16 +67,28 @@ class MainWindow(QMainWindow):
                 self.new_img()
                 # Передаем ll в параметры для следуещего поиска
                 self.search_api_handler.set_params(key=('ll', point))
-                self.address_text.setPlaceholderText('Адрес: \n' +
-                                                     "\n".join(self.search_api_handler.get_address().split(", ")))
+                self.address_text.setPlainText('Адрес: \n' +
+                                               "\n".join(self.search_api_handler.get_address().split(", ")))
             else:
-                self.address_text.setPlaceholderText('Объект не найден')
+                self.address_text.setPlainText('Объект не найден')
         else:
-            self.address_text.setPlaceholderText('Объект не введен')
+            self.address_text.setPlainText('Объект не введен')
 
     # Сброс найденного объекта
     def clear_object(self):
         self.static_api_handler.set_params(key=('pt', None))
         self.new_img()
         self.input_object.setText('')
-        self.address_text.setPlaceholderText('')
+        self.address_text.setPlainText('')
+
+    # Добавить индекс
+    def index(self):
+        if self.address_text.toPlainText():
+            if self.add_index.isChecked():
+                self.address_text.appendPlainText(f'Индекс: {self.search_api_handler.get_index()}')
+            else:
+                self.address_text.setPlainText('\n'.join(
+                    self.address_text.toPlainText().split('\n')[:-1:]))
+        else:
+            # Если адреса нет, то переводим CheckBox в False
+            self.add_index.setCheckState(False)

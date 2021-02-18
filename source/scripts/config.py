@@ -25,3 +25,13 @@ search_api_params = {
     'spn': static_api_params['spn'],
     'll': static_api_params['ll']
 }
+
+# GeoCoder API данные
+geocoder_api_key = '40d1649f-0493-4b70-98ba-98533de7710b'  # Вставить ключ
+geocoder_api_url = 'https://geocode-maps.yandex.ru/1.x'
+
+geocoder_api_params = {
+    'geocode': None,
+    'apikey': geocoder_api_key,
+    'format': 'json'
+}
