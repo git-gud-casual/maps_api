@@ -22,6 +22,8 @@ class MainWindow(QMainWindow):
         self.l_param_but_group.buttonClicked.connect(self.type_map)
         # Поиск объекта
         self.find_object_but.clicked.connect(self.find_object)
+        # Сброс найденного объекта
+        self.clear_object_but.clicked.connect(self.clear_object)
 
     # Метод для отображения карты на QLabel
     def set_map(self, map_):
@@ -53,17 +55,28 @@ class MainWindow(QMainWindow):
     def find_object(self):
         text = self.input_object.text()
         if text.replace(' ', '') != '':
+            # Устанавливаем соединение с SearchApi
             self.search_api_handler.set_params(key=('text', text))
             self.search_api_handler.new_response()
-            if self.search_api_handler.get_status() == 200:
-                point = self.search_api_handler.get_point()
+            point = self.search_api_handler.get_point()
+            if point:
                 self.static_api_handler.set_params(key=('ll', point))
                 self.static_api_handler.set_params(key=('pt', point + ',pm2wtm'))
                 self.new_img()
                 # Передаем ll в параметры для следуещего поиска
                 self.search_api_handler.set_params(key=('ll', point))
                 self.find_object_status.setText('Объект Найден')
+                self.address_text.setText('Адрес: \n' +
+                                          "\n".join(self.search_api_handler.get_address().split(",")))
             else:
                 self.find_object_status.setText('Объект не найден')
         else:
             self.find_object_status.setText('Объект не введен')
+
+    # Сброс найденного объекта
+    def clear_object(self):
+        self.static_api_handler.set_params(key=('pt', None))
+        self.new_img()
+        self.input_object.setText('')
+        self.find_object_status.setText('')
+        self.address_text.setText('')
