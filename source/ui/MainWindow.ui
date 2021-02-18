@@ -139,19 +139,6 @@
      <string>Найти</string>
     </property>
    </widget>
-   <widget class="QLabel" name="address_text">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>230</y>
-      <width>161</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QPushButton" name="clear_object_but">
     <property name="geometry">
      <rect>
@@ -163,6 +150,19 @@
     </property>
     <property name="text">
      <string>Сбросить</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="address_text">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>230</y>
+      <width>171</width>
+      <height>161</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QWidget" name="">
