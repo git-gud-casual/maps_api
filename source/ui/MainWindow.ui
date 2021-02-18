@@ -139,24 +139,11 @@
      <string>Найти</string>
     </property>
    </widget>
-   <widget class="QLabel" name="find_object_status">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>230</y>
-      <width>121</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="address_text">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>265</y>
+      <y>230</y>
       <width>161</width>
       <height>81</height>
      </rect>

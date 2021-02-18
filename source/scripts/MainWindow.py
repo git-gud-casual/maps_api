@@ -65,18 +65,16 @@ class MainWindow(QMainWindow):
                 self.new_img()
                 # Передаем ll в параметры для следуещего поиска
                 self.search_api_handler.set_params(key=('ll', point))
-                self.find_object_status.setText('Объект Найден')
                 self.address_text.setText('Адрес: \n' +
                                           "\n".join(self.search_api_handler.get_address().split(",")))
             else:
-                self.find_object_status.setText('Объект не найден')
+                self.address_text.setText('Объект не найден')
         else:
-            self.find_object_status.setText('Объект не введен')
+            self.address_text.setText('Объект не введен')
 
     # Сброс найденного объекта
     def clear_object(self):
         self.static_api_handler.set_params(key=('pt', None))
         self.new_img()
         self.input_object.setText('')
-        self.find_object_status.setText('')
         self.address_text.setText('')
