@@ -35,6 +35,7 @@ class MainWindow(QMainWindow):
         self.set_map(self.handler.get_map())
         self.set_status(self.handler.get_status())
 
+    # Смена типы карты
     def type_map(self, button):
         if button.text() == 'Схема':
             key = ('l', 'map')
