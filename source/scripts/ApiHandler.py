@@ -12,8 +12,12 @@ class ApiHandler:
         self.cache_handler = cache_handler
 
     # Метод для установки параметров
-    def set_params(self, params):
-        self.params = params
+    def set_params(self, params=None, key=None):
+        if params:
+            self.params = params
+        else:
+            # Можно изменить лишь один параметр, просто передав аргумент key
+            self.params[key[0]] = key[1]
 
     # Метод для получения статус-кода
     def get_status(self):

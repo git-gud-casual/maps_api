@@ -8,9 +8,8 @@ import source.scripts.config as config
 
 if __name__ == '__main__':
     # Api Handler
-    url, params = config.url, config.params
-    handler = ApiHandler(url, params, CacheHandler('cache/'))  # cache/ - место кеширования
+    handler = ApiHandler(config.url, config.params, CacheHandler('cache/'))  # cache/ - место кеширования
     app = QApplication(sys.argv)
-    window = MainWindow(handler.get_map(), handler.get_status())
+    window = MainWindow(handler)
     window.show()
     sys.exit(app.exec_())

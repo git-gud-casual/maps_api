@@ -78,6 +78,67 @@
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="select_map_type_text">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe UI</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Тип карты</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>111</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QRadioButton" name="map_but">
+       <property name="text">
+        <string>Схема</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">l_param_but_group</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="sat_but">
+       <property name="text">
+        <string>Спутник</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">l_param_but_group</string>
+       </attribute>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="sat_skl_but">
+       <property name="text">
+        <string>Гибрид</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">l_param_but_group</string>
+       </attribute>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -93,4 +154,7 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="l_param_but_group"/>
+ </buttongroups>
 </ui>
