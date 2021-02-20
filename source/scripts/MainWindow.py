@@ -38,14 +38,9 @@ class MainWindow(QMainWindow):
         if map_:
             self.map_render.setPixmap(map_)
 
-    # Оторбражение статус кода. Для отладки
-    def set_status(self, msg):
-        self.error_label.setText(f'Status-code:\n{msg}')
-
     # Отображение нового изображения
     def new_img(self):
         self.set_map(self.static_api_handler.get_map())
-        self.set_status(self.static_api_handler.get_status())
 
     # Смена типы карты
     def type_map(self, button):
