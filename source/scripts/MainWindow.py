@@ -18,7 +18,6 @@ class MainWindow(QMainWindow):
         self.MAP_RENDER_SIZE = (self.map_render.width(), self.map_render.height())
 
         self.set_map(self.static_api_handler.get_map())
-        self.set_status(self.static_api_handler.get_status())
         self.ui_init()
 
     # Загрузка интерфейса
