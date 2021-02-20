@@ -158,7 +158,6 @@ class MainWindow(QMainWindow):
     # Событие нажития клавиши
     def keyPressEvent(self, event):
         key = event.key()
-        print(key)
         new_response = False
         delta = float(self.static_api_handler.params['spn'].split(',')[0])
         delta_posx = {Qt.Key_Right: delta, Qt.Key_Left: -delta}
