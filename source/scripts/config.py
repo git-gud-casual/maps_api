@@ -4,7 +4,7 @@ static_api_url = "http://static-maps.yandex.ru/1.x/"
 
 lon = "37.530887"
 lat = "55.703118"
-delta = "0.003"
+delta = "0.01"
 l_param = "map"
 
 static_api_params = {
@@ -22,8 +22,7 @@ search_api_params = {
     'apikey': search_api_key,
     'text': None,
     'lang': 'ru_RU',
-    'spn': static_api_params['spn'],
-    'll': static_api_params['ll']
+    'type': 'biz'
 }
 
 # GeoCoder API данные

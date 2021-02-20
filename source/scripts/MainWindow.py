@@ -5,13 +5,14 @@ from PyQt5.QtCore import Qt
 
 # Класс главного окна
 class MainWindow(QMainWindow):
-    def __init__(self, static_handler, search_handler):
+    def __init__(self, static_handler, search_handler, geocoder_handler):
         super().__init__()
         # Загрузка интерфейс
         uic.loadUi('source/ui/MainWindow.ui', self)
         # Работать с ApiHandler удобнее в MainWindow
         self.static_api_handler = static_handler
         self.search_api_handler = search_handler
+        self.geocoder_api_handler = geocoder_handler
 
         # Размеры QLabel для отображения карты. Понадобится для отслеживания кликов
         self.MAP_RENDER_SIZE = (self.map_render.width(), self.map_render.height())
@@ -58,23 +59,21 @@ class MainWindow(QMainWindow):
         self.new_img()
 
     # Найти объект
-    def find_object(self, point=False):
+    def find_object(self, point=False, responsed=False):
         if not point:
             text = self.input_object.text()
         else:
             text = point
-        if text.replace(' ', '') != '':
-            # Устанавливаем соединение с SearchApi
-            self.search_api_handler.set_params(key=('text', text))
-            self.search_api_handler.new_response()
-            point = self.search_api_handler.get_point()
-            print(point)
+        if text.replace(' ', '') != '' or responsed:
+            # Устанавливаем соединение с GeocoderApi
+            if not responsed:
+                self.geocoder_api_handler.set_params(key=('geocode', text))
+                self.geocoder_api_handler.new_response()
+            point = self.geocoder_api_handler.get_point()
             if point:
                 self.set_new_object(point)
-                # Передаем ll в параметры для следуещего поиска
-                self.search_api_handler.set_params(key=('ll', point))
                 self.address_text.setPlainText('Адрес: \n' +
-                                               "\n".join(self.search_api_handler.get_address().split(", ")))
+                                               "\n".join(self.geocoder_api_handler.get_address().split(", ")))
             else:
                 self.address_text.setPlainText('Объект не найден')
         else:
@@ -96,9 +95,9 @@ class MainWindow(QMainWindow):
 
     # Добавить индекс
     def index(self):
-        if self.address_text.toPlainText():
+        if self.address_text.toPlainText() and self.geocoder_api_handler.get_index():
             if self.add_index.isChecked():
-                self.address_text.appendPlainText(f'Индекс: {self.search_api_handler.get_index()}')
+                self.address_text.appendPlainText(f'Индекс: {self.geocoder_api_handler.get_index()}')
             else:
                 self.address_text.setPlainText('\n'.join(
                     self.address_text.toPlainText().split('\n')[:-1:]))
@@ -118,16 +117,30 @@ class MainWindow(QMainWindow):
                 self.find_object_by_click(pos)
             elif event.button() == Qt.RightButton:
                 # Правая конпки мыши
-                pass
+                self.find_organisation(pos)
 
-    # Найти объект по клику`
+    # Найти организацию
+    def find_organisation(self, pos):
+        coord = tuple(map(float, self.static_api_handler.params['ll'].split(',')))
+        spn = tuple(map(float, self.static_api_handler.params['spn'].split(',')))
+
+        pos_new = self.get_points_from_pos(pos, spn, coord)
+        self.geocoder_api_handler.set_params(key=('geocode', pos_new))
+        print(pos_new)
+        self.search_api_handler.new_response(pos=tuple(map(float, pos_new.split(','))))
+        if self.search_api_handler.object_found:
+            self.set_new_object(self.search_api_handler.get_point())
+            self.find_object(responsed=True)
+        else:
+            self.address_text.setPlainText('Организация не найдена')
+
+    # Найти объект по клику
     def find_object_by_click(self, pos):
         # Координаты центра карты
         coord = tuple(map(float, self.static_api_handler.params['ll'].split(',')))
         # Охват карты
         spn = tuple(map(float, self.static_api_handler.params['spn'].split(',')))
         points = self.get_points_from_pos(pos, spn, coord)
-        print(points)
         self.find_object(points)
 
     # Получим долготу и широту на которую кликнули
@@ -135,12 +148,10 @@ class MainWindow(QMainWindow):
         # Преобразуем pos в pos относительно центра map_render
         pos = tuple((pos[i] - self.MAP_RENDER_SIZE[i] // 2) * (1, -1)[i]
                     for i in range(2))
-        print(pos)
         # Рассчитаем на какие координаты по клику мы попали
         # Преобразуем spn в долготу/широту за единицу на координатах
-        spn = tuple(spn[i] / (self.MAP_RENDER_SIZE[i] // 2) for i in range(2))
+        spn = tuple(spn[i] / self.MAP_RENDER_SIZE[i] for i in range(2))
         # Разница координат
         spn = tuple(pos[i] * spn[i] for i in range(2))
-        print(spn)
         # Возвращаем координаты по которым кликнули
-        return ','.join(reversed(tuple(str(round(coord[i] + spn[i], 6)) for i in range(2))))
+        return ','.join(tuple(str(round(coord[i] + spn[i], 6)) for i in range(2)))

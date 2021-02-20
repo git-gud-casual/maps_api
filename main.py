@@ -19,6 +19,6 @@ if __name__ == '__main__':
                                           geocoder_api_handler)
 
     app = QApplication(sys.argv)
-    window = MainWindow(static_api_handler, search_api_handler)
+    window = MainWindow(static_api_handler, search_api_handler, geocoder_api_handler)
     window.show()
     sys.exit(app.exec_())

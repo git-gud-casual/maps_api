@@ -3,6 +3,8 @@
     <words>
       <w>apikey</w>
       <w>geocoder</w>
+      <w>lattitude</w>
+      <w>responsed</w>
     </words>
   </dictionary>
 </component>
