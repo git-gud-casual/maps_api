@@ -22,14 +22,9 @@ class SearchApiHandler(ApiHandler):
             self.answer = self.response.json()['features']
             # Просматриваем все организации в 50м
             for i in self.answer:
-
-                print(lonlat_distance(i['geometry']["coordinates"],
-                                   tuple(map(
-                                       float, self.geocoder_handler.get_point().split(',')))))
                 if lonlat_distance(i['geometry']["coordinates"],
                                    tuple(map(
                                        float, self.geocoder_handler.get_point().split(',')))) <= 50:
-                    print(pos)
                     self.answer = i
                     # Устанавливаем новые координаты в параметре геокодера и подключаемся
                     # Это нужно для вывода индекса и адреса в дальнейшем
